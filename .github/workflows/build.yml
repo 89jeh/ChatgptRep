@@ -1,0 +1,29 @@
+name: Build Roblox Place
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Aftman
+        uses: ok-nick/setup-aftman@v1
+
+      - name: Install tools
+        run: aftman install
+
+      - name: Build place with Rojo
+        run: rojo build default.project.json -o build.rbxlx
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: roblox-place
+          path: build.rbxlx

@@ -13,10 +13,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Rojo
-        uses: rojo-rbx/setup-rojo@v1
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
         with:
-          version: 7.6.0
+          toolchain: stable
+          override: true
+
+      - name: Install Rojo
+        run: cargo install rojo
 
       - name: Build place
         run: rojo build default.project.json -o build.rbxlx
